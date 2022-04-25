@@ -1,11 +1,12 @@
-import Container from "react-bootstrap/Container"
-import Navbar from "react-bootstrap/Navbar"
-import Nav from "react-bootstrap/Nav"
-import { Link, NavLink } from "react-router-dom"
+import Container from 'react-bootstrap/Container'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import { Link, NavLink } from 'react-router-dom'
 
-const Navigation = () => {
+export default function navigation() {
 	return (
-		<Navbar bg="dark" variant="dark" expand="md">
+		<div>
+			<Navbar bg="dark" variant="dark" expand="md">
 			<Container>
 				<Navbar.Brand as={Link} to="/">
 				    Star Wars
@@ -24,7 +25,6 @@ const Navigation = () => {
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>
+		</div>
 	)
 }
-
-export default Navigation
