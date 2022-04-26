@@ -65,7 +65,7 @@ export default function Characters() {
 						className='btn btn-secondary'
 					>Previous Page</button>
 							
-					<div>{page}</div>
+					<div className='text-light'>{page}</div>
 							
 					<button
 						disabled={!data.next}

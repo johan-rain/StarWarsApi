@@ -25,7 +25,7 @@ export default function Movies() {
 			<div className='d-flex flex-wrap justify-content-center'>
 				{movies && movies.results.map(film => (
 
-						<div key={film.episode_id} className='card border-secondary m-4 col-md-3 col-sm-4'>
+						<div key={film.episode_id} className='card border-secondary m-4 col-md-3'>
 
 							<div className='card-header d-flex'>
 								<h2>{film.title}</h2>
