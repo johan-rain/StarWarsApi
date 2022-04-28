@@ -2,15 +2,13 @@ import SwAPI from "../services/SwAPI"
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Loading from "../components/Loading"
-import { useSearchParams } from 'react-router-dom'
+import { getIdFromUrl } from "../helpers/helpers"
 
 export default function Characters() {
     const [characters, setCharacters] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState([])
 	const [page, setPage] = useState(1)
-	// eslint-disable-next-line
-	const [searchParams, setSearchParams] = useSearchParams()
 
     const fetchCharacters = async () => {
 		setLoading(true)
@@ -19,14 +17,12 @@ export default function Characters() {
 		setData(data)
 		setLoading(false)
 
-		setSearchParams({ page: page })
-
 		console.log(data)
 	}
 
 	useEffect(() => {
 		fetchCharacters()
-		// eslint-disable-next-line 
+		// eslint-disable-next-line
 	}, [page])
 
 
@@ -48,7 +44,7 @@ export default function Characters() {
 							<hr />
 							<p className='text-dark'>Appears in: {character.films.length} film(s)</p>
 
-							<Link to={`/characters/${index + 1}`}>
+							<Link to={`/characters/${getIdFromUrl(character.url)}`}>
 								<button type='button' className='btn btn-primary'>Read more</button>
 							</Link>
 						</div>
@@ -58,21 +54,11 @@ export default function Characters() {
 
 			{!loading && (
 				<div className='d-flex justify-content-between align-items-center p-4'>
-					<button
-						disabled={!data.previous}
-						onClick={() => setPage(prevValue => prevValue - 1)}
-						type='button'
-						className='btn btn-secondary'
-					>Previous Page</button>
+					<button disabled={!data.previous} onClick={() => setPage(prevValue => prevValue - 1)} type='button' className='btn btn-secondary'>Previous Page</button>
 							
 					<div className='text-light'>{page}</div>
 							
-					<button
-						disabled={!data.next}
-						onClick={() => setPage(prevValue => prevValue + 1)}
-						type='button'
-						className='btn btn-secondary'
-			 		>Next Page</button>
+					<button disabled={!data.next} onClick={() => setPage(prevValue => prevValue + 1)} type='button' className='btn btn-secondary'>Next Page</button>
 				</div>
 			)}	
 		</>
