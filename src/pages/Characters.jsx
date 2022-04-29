@@ -20,9 +20,9 @@ export default function Characters() {
 	}
 
 	useEffect(() => {
-		fetchCharacters(page)
-
-	}, )
+		fetchCharacters()
+		// eslint-disable-next-line
+	}, [page])
 
 
     return (

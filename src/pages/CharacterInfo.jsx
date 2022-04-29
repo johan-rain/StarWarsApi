@@ -22,8 +22,8 @@ export default function CharacterInfo() {
 
     useEffect(() => {
         fetchCharacter(id)
-
-    }, )
+        // eslint-disable-next-line
+    }, [id])
 
     return (
 		<>
