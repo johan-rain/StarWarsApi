@@ -1,5 +1,5 @@
 import SwAPI from "../services/SwAPI"
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import Loading from "../components/Loading"
 import { getIdFromUrl } from "../helpers/helpers"
@@ -10,19 +10,19 @@ export default function Characters() {
 	const [data, setData] = useState([])
 	const [page, setPage] = useState(1)
 
-    const fetchCharacters = async () => {
+    const fetchCharacters = useCallback(async () => {
 		setLoading(true)
 
 		const data = await SwAPI.getCharacters(page)
 		setCharacters(data.results)
 		setData(data)
 		setLoading(false)
-	}
+	},[page])
 
 	useEffect(() => {
 		fetchCharacters()
-		// eslint-disable-next-line
-	}, [page])
+		
+	}, [fetchCharacters, page])
 
 
     return (

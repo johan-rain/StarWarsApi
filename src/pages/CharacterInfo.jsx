@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import SwAPI from '../services/SwAPI'
 import { getIdFromUrl } from '../helpers/helpers'
@@ -12,18 +12,18 @@ export default function CharacterInfo() {
     const { id } = useParams()
     const navigate = useNavigate()
 
-    const fetchCharacter = async () => {
+    const fetchCharacter = useCallback( async () => {
         setLoading(true)
         const data = await SwAPI.getCharacter(id)
         setCharacter(data)
         setMovies(data.films)
         setLoading(false)
-    }
+    }, [id])
 
     useEffect(() => {
         fetchCharacter(id)
-        // eslint-disable-next-line
-    }, [id])
+
+    }, [fetchCharacter, id])
 
     return (
 		<>
