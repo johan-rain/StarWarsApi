@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Loading from "../components/Loading"
 import { getIdFromUrl } from "../helpers/helpers"
+import NotFound from '../pages/NotFound'
 
 export default function Characters() {
     const [characters, setCharacters] = useState([])
@@ -12,12 +13,11 @@ export default function Characters() {
 
     const fetchCharacters = async () => {
 		setLoading(true)
+
 		const data = await SwAPI.getCharacters(page)
 		setCharacters(data.results)
 		setData(data)
 		setLoading(false)
-
-		console.log(data)
 	}
 
 	useEffect(() => {
@@ -28,6 +28,7 @@ export default function Characters() {
 
     return (
         <>
+			{<NotFound />}
 			{loading && <Loading />}
             <div className='d-flex flex-wrap justify-content-center'>{characters.map((character, index) => (
 

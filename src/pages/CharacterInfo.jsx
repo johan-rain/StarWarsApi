@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import SwAPI from '../services/SwAPI'
 import { getIdFromUrl } from '../helpers/helpers'
-// import NotFound from '../pages/NotFound'
+import NotFound from '../pages/NotFound'
 import Loading from '../components/Loading' 
 
 export default function CharacterInfo() {
@@ -28,7 +28,7 @@ export default function CharacterInfo() {
 
     return (
 		<>
-			{/* {<NotFound />} */}
+			{<NotFound />}
 			{loading && <Loading />}
 
 			<div className='d-flex justify-content-center'>

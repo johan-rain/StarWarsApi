@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Loading from "../components/Loading"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { getIdFromUrl } from '../helpers/helpers'
-// import NotFound from '../pages/NotFound'
+import NotFound from '../pages/NotFound'
 
 export default function MovieInfo() {
     const [loading, setLoading] = useState(false)
@@ -26,7 +26,7 @@ export default function MovieInfo() {
 
     return (
 		<>
-			{/* {<NotFound />} */}
+			{<NotFound />}
 			{loading && <Loading />}
 
 			<div className='d-flex  justify-content-center'>

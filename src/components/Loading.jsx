@@ -1,7 +1,7 @@
 export default function Loading() {
     return (
         <>
-            <h1 className='text-center text-light'>Loading...</h1>
+            <h1 className='text-light'>Loading...</h1>
         </>
     )
 }
