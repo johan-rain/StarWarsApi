@@ -23,7 +23,7 @@ export default function CharacterInfo() {
     useEffect(() => {
         fetchCharacter(id)
 
-    }, [id])
+    }, )
 
     return (
 		<>
