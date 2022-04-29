@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getIdFromUrl } from '../helpers/helpers'
 import Loading from "../components/Loading"
-import NotFound from '../pages/NotFound'
 
 export default function Movies() {
     const [movies, setMovies] = useState('')
@@ -22,7 +21,6 @@ export default function Movies() {
 
 	return (
 		<>
-			{<NotFound />}
 			{loading && <Loading />}
 			<div className='d-flex flex-wrap justify-content-center'>
 				{movies && movies.results.map(film => (
