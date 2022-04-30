@@ -1,33 +1,45 @@
 import SwAPI from "../services/SwAPI"
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Loading from "../components/Loading"
 import { getIdFromUrl } from "../helpers/helpers"
+import NotFound from '../pages/NotFound'
 
 export default function Characters() {
     const [characters, setCharacters] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState([])
 	const [page, setPage] = useState(1)
-
-    const fetchCharacters = useCallback(async () => {
-		setLoading(true)
-
-		const data = await SwAPI.getCharacters(page)
-		setCharacters(data.results)
-		setData(data)
-		setLoading(false)
-	},[page])
+    const [error, setError] = useState(null)
 
 	useEffect(() => {
+		const fetchCharacters = async () => {
+			setLoading(true)
+
+			try{
+				const data = await SwAPI.getCharacters(page)
+				setCharacters(data.results)
+				setData(data)
+				setLoading(false)
+				setError(null)
+			
+			} catch(err) {
+				setLoading(false)
+				setError(err)
+				console.log(err.message)
+			}
+		}
+
 		fetchCharacters()
 		
-	}, [fetchCharacters, page])
+	}, [page])
 
 
     return (
         <>
-			{loading && <Loading />}
+			{loading && !error && <Loading />}
+
+			{error && <NotFound />}
             <div className='d-flex flex-wrap justify-content-center'>{characters.map((character, index) => (
 
 					<div key={index} className='card border-secondary m-3 col-md-3'>
@@ -51,7 +63,7 @@ export default function Characters() {
 				))}
 			</div>
 
-			{!loading && (
+			{!loading && !error && (
 				<div className='d-flex justify-content-between align-items-center p-4'>
 					<button disabled={!data.previous} onClick={() => setPage(prevValue => prevValue - 1)} type='button' className='btn btn-secondary'>Previous Page</button>
 							
