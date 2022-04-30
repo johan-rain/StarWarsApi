@@ -6,7 +6,6 @@ import Loading from '../components/Loading'
 import NotFound from '../pages/NotFound'
 
 export default function CharacterInfo() {
-    
     const [loading, setLoading] = useState(false)
     const [movies, setMovies] = useState([])
     const [details, setDetails] = useState([])

@@ -27,10 +27,11 @@ export default function MovieInfo() {
 				setLoading(false)
         		setError(err)
         		console.log(err.message)
-			}
-			
+			}	
 		}
+
 		fetchMovieInfo(id)
+		
 	}, [id])
 
     return (
