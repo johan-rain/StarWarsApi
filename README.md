@@ -1,6 +1,6 @@
 # Javascript course assignment 
 
-A project that involved communicating to a api about Star Wars and displaying that said data.
+A project that involved communicating to an api about Star Wars and displaying that said data.
 
 ## Live demo at
 
