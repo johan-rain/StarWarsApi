@@ -1,8 +1,9 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import SwAPI from '../services/SwAPI'
 import { getIdFromUrl } from '../helpers/helpers'
-import Loading from '../components/Loading' 
+import Loading from '../components/Loading'
+import NotFound from '../pages/NotFound'
 
 export default function CharacterInfo() {
     
@@ -11,27 +12,39 @@ export default function CharacterInfo() {
     const [details, setCharacter] = useState([])
     const { id } = useParams()
     const navigate = useNavigate()
+	const [error, setError] = useState(null)
 
-    const fetchCharacter = useCallback( async () => {
-        setLoading(true)
-        const data = await SwAPI.getCharacter(id)
-        setCharacter(data)
-        setMovies(data.films)
-        setLoading(false)
-    }, [id])
 
     useEffect(() => {
+		const fetchCharacter = async () => {
+			setLoading(true)
+
+			try {
+				const data = await SwAPI.getCharacter(id)
+				setCharacter(data)
+				setMovies(data.films)
+				setLoading(false)
+					
+			}	catch (err) {
+				setLoading(false)
+				setError(err)
+				console.log(err.message)
+			}
+		}
+
         fetchCharacter(id)
 
-    }, [fetchCharacter, id])
+    }, [id])
 
     return (
 		<>
-			{loading && <Loading />}
+			{loading && !error && <Loading />}
+
+			{error && <NotFound />}
 
 			<div className='d-flex justify-content-center'>
 				
-				{details && (
+				{details && !error && (
 					<div className='card m-4 character-character-card'>
 						<h3 className='card-header text-dark'>{details.name}</h3>
 
