@@ -23,7 +23,7 @@ export default function Characters() {
 				setLoading(false)
 				setError(null)
 			
-			} catch(err) {
+			} catch (err) {
 				setLoading(false)
 				setError(err)
 				console.log(err.message)
@@ -33,7 +33,6 @@ export default function Characters() {
 		fetchCharacters()
 		
 	}, [page])
-
 
     return (
         <>

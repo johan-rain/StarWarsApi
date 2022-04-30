@@ -22,6 +22,7 @@ export default function MovieInfo() {
 				setDetails(data)
 				setCharacters(data.characters)
 				setLoading(false)
+				
 			} catch (err) {
 				setLoading(false)
         		setError(err)
