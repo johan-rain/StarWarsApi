@@ -4,7 +4,7 @@ A project that involved communicating to a api about Star Wars and displaying th
 
 ## Live demo at
 
-`https://wonderful-piroshki-24c47f.netlify.app`
+(https://wonderful-piroshki-24c47f.netlify.app)
 
 ## Available Scripts
 To run local
