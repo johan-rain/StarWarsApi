@@ -37,6 +37,7 @@ export default function Movies() {
 			{error && <NotFound />}
 
 			<div className='d-flex flex-wrap justify-content-center'>
+
 				{movies && !error && movies.results.map(film => (
 
 						<div key={film.episode_id} className='card border-secondary m-4 col-md-3'>

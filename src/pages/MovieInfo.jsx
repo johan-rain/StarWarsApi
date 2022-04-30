@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Loading from "../components/Loading"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { getIdFromUrl } from '../helpers/helpers'
+import NotFound from '../pages/NotFound'
 
 export default function MovieInfo() {
     const [loading, setLoading] = useState(false)
@@ -10,26 +11,36 @@ export default function MovieInfo() {
     const [characters, setCharacters] = useState([])
     const { id } = useParams()
     const navigate = useNavigate()
-
-    const fetchMovieInfo = async () => {
-        setLoading(true)
-        const data = await SwAPI.getMovie(id)
-        setDetails(data)
-        setCharacters(data.characters)
-        setLoading(false)
-    }
+	const [error, setError] = useState(null)
 
     useEffect(() => {
-		fetchMovieInfo()
-	})
+		const fetchMovieInfo = async () => {
+			setLoading(true)
+
+			try {
+				const data = await SwAPI.getMovie(id)
+				setDetails(data)
+				setCharacters(data.characters)
+				setLoading(false)
+			} catch (err) {
+				setLoading(false)
+        		setError(err)
+        		console.log(err.message)
+			}
+			
+		}
+		fetchMovieInfo(id)
+	}, [id])
 
     return (
 		<>
-			{loading && <Loading />}
+			{loading && !error && <Loading />}
+
+			{error && <NotFound />}
 
 			<div className='d-flex  justify-content-center'>
-
-				{details && (
+				
+				{details && !error && (
 					<div className='card m-4 character-details-card'>
 						<h3 className='card-header text-dark'>{details.title}</h3>
 
@@ -56,14 +67,14 @@ export default function MovieInfo() {
 							))}
 						</ul>
 
-						<div className='m-2 pt-4'>
-							<button type='button' className='btn btn-primary' onClick={() => navigate(-1)}>
-								Go back
-							</button>
-						</div>
-
 					</div>
 				)}
+			</div>
+
+			<div>
+				<button type='button' className='btn btn-primary' onClick={() => navigate(-1)}>
+					Go back
+				</button>
 			</div>
 		</>
 	)

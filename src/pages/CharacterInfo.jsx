@@ -9,7 +9,7 @@ export default function CharacterInfo() {
     
     const [loading, setLoading] = useState(false)
     const [movies, setMovies] = useState([])
-    const [details, setCharacter] = useState([])
+    const [details, setDetails] = useState([])
     const { id } = useParams()
     const navigate = useNavigate()
 	const [error, setError] = useState(null)
@@ -21,7 +21,7 @@ export default function CharacterInfo() {
 
 			try {
 				const data = await SwAPI.getCharacter(id)
-				setCharacter(data)
+				setDetails(data)
 				setMovies(data.films)
 				setLoading(false)
 					
@@ -71,12 +71,14 @@ export default function CharacterInfo() {
 						))}
 						</ul>
 
-						<div className='m-3'>
-							<button type='button' className='btn btn-primary' onClick={() => navigate(-1)}>Go back</button>
-						</div>
-
 					</div>
 				)}
+			</div>
+
+			<div>
+				<button type='button' className='btn btn-primary' onClick={() => navigate(-1)}>
+					Go back
+				</button>
 			</div>
 		</>
 	)
