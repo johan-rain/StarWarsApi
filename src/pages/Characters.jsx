@@ -41,7 +41,6 @@ export default function Characters() {
 
 			{error && <NotFound />}
 
-			{!loading && !error}
             <div className='d-flex flex-wrap justify-content-center'>{characters.map((character, index) => (
 
 					<div key={index} className='card border-secondary m-3 col-md-3'>

@@ -25,7 +25,7 @@ export default function CharacterInfo() {
 				setMovies(data.films)
 				setLoading(false)
 					
-			}	catch (err) {
+			} catch (err) {
 				setLoading(false)
 				setError(err)
 				console.log(err.message)

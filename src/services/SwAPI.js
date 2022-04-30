@@ -34,7 +34,7 @@ const getCharacters = async page => {
  */
 
  const getCharacter = async id => {
-	const res = await axios.get(`/people/${id}aa`)
+	const res = await axios.get(`/people/${id}`)
 	return res.data
 }
 

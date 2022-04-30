@@ -3,27 +3,41 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getIdFromUrl } from '../helpers/helpers'
 import Loading from "../components/Loading"
+import NotFound from '../pages/NotFound'
 
 export default function Movies() {
     const [movies, setMovies] = useState('')
 	const [loading, setLoading] = useState(false)
-
-	const fetchMovies = async () => {
-		setLoading(true)
-		const data = await SwAPI.getMovies()
-		setMovies(data)
-		setLoading(false)
-	}
+	const [error, setError] = useState(null)
 
 	useEffect(() => {
+		const fetchMovies = async () => {
+			setLoading(true)
+
+			try {
+				const data = await SwAPI.getMovies()
+				setMovies(data)
+				setLoading(false)
+			
+			} catch (err) {
+				setLoading(false)
+				setError(err)
+				console.log(err.message)
+			}			
+		}
+
 		fetchMovies()
+
 	}, [])
 
 	return (
 		<>
-			{loading && <Loading />}
+			{loading && !error && <Loading />}
+
+			{error && <NotFound />}
+
 			<div className='d-flex flex-wrap justify-content-center'>
-				{movies && movies.results.map(film => (
+				{movies && !error && movies.results.map(film => (
 
 						<div key={film.episode_id} className='card border-secondary m-4 col-md-3'>
 
